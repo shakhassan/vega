@@ -1,0 +1,707 @@
+/*************************************** main */
+
+body {
+    /*background-color: #143645;*/
+    background-color: #353738;
+    font-family: sans-serif;
+}
+
+a {
+    color: grey;
+    text-decoration:none;
+}
+
+textarea {
+  background-color: #282C2E;
+  border: none;
+  width: 100%;
+  height: 100%;
+  /*height: 400px;*/
+  font-size: 14px;
+  font-family: monaco;
+  color: #175290;
+}
+
+ul {
+  list-style-type: none;
+}
+
+p {
+  color: #CFD7DB;
+}
+
+li {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /*display: inline-block;*/
+}
+
+#topMenuBar {
+  background-color: #4a4d4f;
+  /*width: 100%;*/
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  padding-left: 10px;
+  margin-left: -10px;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+  /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);*/
+}
+
+.btnTopMenu {
+  border-radius: 5px;
+  padding: 5px 12px;
+  font-size: 15px;
+  text-decoration: none;
+  margin: 6px 6px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  float: right;
+  cursor: pointer;
+}
+
+.btnTopMenu:active {
+  /*transform: translate(0px, 5px);*/
+  /*-webkit-transform: translate(0px, 5px);*/
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.userBtnTopMenu {
+  background-color: #175290;
+
+}
+
+.userBtnTopMenu:hover {
+  background-color: #6FC6FF;
+}
+
+.syncIcon {
+  display: inline-block;
+  padding-left: 5px;
+  margin: 2px 0 0 0;
+  cursor: pointer;
+}
+
+.notiIcon {
+  display: inline-block;
+  /*padding-left: 5px;*/
+  margin: 2px 0 0 0;
+  /*padding-bottom: 5px;*/
+  /*margin-bottom: 17px;*/
+  cursor: pointer;
+}
+
+#urlRequest {
+  background-color: #8A8C8E;
+  color: white;
+  width: 595px;
+  height: 30px;
+  font-size: 15px;
+  border: 1px;
+}
+
+#httpresponsearea {
+  background-color: #282C2E;
+  border: none;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-family: monaco;
+  color: #175290;
+  /*display: none;*/
+}
+
+/* left panel & main content */
+
+.box{
+  /*margin: 100px auto;*/
+  /*background-color: #353738;*/
+  margin-top: 40px;
+  width: 300px;
+  height: 50px;
+}
+
+.container-1{
+  width: 300px;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+}
+
+.container-1 input#search{
+  width: 210px;
+  height: 30px;
+  background: #353738;
+  /*border: none;*/
+  border-width: 3px;
+  border-color: white;
+  border-top-color: white;
+  /*border-left-color: #63717f;*/
+  font-size: 10pt;
+  float: left;
+  color: white;
+  padding-left: 10px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+}
+
+/*.container-1 .icon{
+  position: absolute;
+  top: 50%;
+  margin-left: 17px;
+  margin-top: 10px;
+  z-index: 1;
+  color: #4f5b66;
+}*/
+
+#menu {
+    width: 80%;
+    /*height: 20px;*/
+    /*background: aqua;*/
+    /*margin-top: -10px;*/
+    margin: auto;
+    padding: 10px;
+    /*display: inline-block;*/
+    /*box-sizing:        border-box;*/
+}
+#httpMethodListGet {
+    /*width: 13%;*/
+    width: 40px;
+    /*height: 20px;*/
+    color: green;
+    font-size: 13px;
+    margin-left: -20px;
+    /*font-family: sans-serif;*/
+    /*background: red;*/
+    float: left;
+    /*display: inline-block;*/
+    /*margin-bottom: 40px;*/
+    /*padding-bottom: 30px;*/
+}
+#httpMethodListPost {
+    width: 15%;
+    height: 20px;
+    color: orange;
+    font-size: 12px;
+    /*font-family: sans-serif;*/
+    /*background: red;*/
+    float: left;
+}
+#httpMethodListDelete {
+    width: 15%;
+    height: 20px;
+    color: red;
+    font-size: 12px;
+    /*font-family: sans-serif;*/
+    /*background: red;*/
+    float: left;
+}
+#httpMethodTitle {
+    margin-left: 10%;
+    /*height: 20px;*/
+    color: #CFD7DB;
+    font-size: 13px;
+    width: 135px;
+    /*background: black;*/
+    /*display: inline-block;*/
+    /*float:left;*/
+}
+
+#urlMenuLeft {
+    margin-left: 15%;
+    /*height: 20px;*/
+    color: #CFD7DB;
+    font-size: 13px;
+    width: 135px;
+    word-wrap: break-word;
+    /*background: black;*/
+    /*display: inline-block;*/
+    /*float:left;*/
+}
+
+#boxTest {
+  box-sizing: border-box;
+}
+
+/*#httpMethodList {
+  color: green;
+}*/
+
+#page {
+    margin-left: 230px;
+}
+#maincontent {
+    float: right;
+    width: 100%;
+    margin-top: 32px;
+    /*background-color: #F0F0F0;*/
+}
+#menuleftcontent{
+    float: left;
+    width: 230px;
+    margin-left: -230px;
+    margin-top: 5px;
+    position: fixed;
+    /*background-color: #CCCCCC;*/
+}
+#clearingdiv {
+    clear: both;
+}
+
+/* Send button */
+
+#buttonSend {
+    background-color: #008CBA; /* Green */
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+/*************************************** request tab */
+
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /*border: 1px solid #ccc;*/
+    background-color: #353738;
+    /*margin-top: 30px;*/
+}
+
+/* Float the list items side by side */
+ul.tab li {
+  float: left;
+
+}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    /*color: #CFD7DB;*/
+    color: #8A8C8E;
+    text-align: center;
+    padding: 2px 2px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 14px;
+    /*margin-top: 30px;*/
+    /*margin-top: auto;
+    margin-bottom: auto;*/
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {
+    background-color: #6C7579;
+}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {
+    /*background-color: #ccc;*/
+    color: #D8DADC
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 6px;
+    /*border: 1px solid #ccc;*/
+    border-top: none;
+    background-color: #282C2E;
+    color: #8A8C8E;
+}
+
+/* Style the tab content */
+.tabcontentResponse {
+
+    padding: 6px 6px;
+    /*border: 1px solid #ccc;*/
+    border-top: none;
+    background-color: #282C2E;
+    color: #8A8C8E;
+}
+
+/* Style the tab content */
+.tabcontentResponseHeaders {
+    display: none;
+    padding: 6px 6px;
+    /*border: 1px solid #ccc;*/
+    border-top: none;
+    background-color: #282C2E;
+    color: #8A8C8E;
+}
+
+.requestheaders {
+  background-color: #282C2E;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-color: #8A8C8E;
+  border-width: 1px;
+  color: #8A8C8E
+}
+
+/* Saved & History Tabs */
+ul.tabSH {
+    list-style-type: none;
+    margin-top: -10px;
+    padding: 0;
+    overflow: hidden;
+    width: 200px;
+    /*border: 1px solid #ccc;*/
+    background-color: #353738;
+    /*margin-top: 30px;*/
+}
+
+/* Float the list items side by side */
+ul.tabSH li {
+  float: left;
+
+}
+
+/* Style the links inside the list items */
+ul.tabSH li a {
+    display: inline-block;
+    /*color: #CFD7DB;*/
+    color: #8A8C8E;
+    text-align: center;
+    padding: 2px 2px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 14px;
+    /*margin-top: 30px;*/
+    /*margin-top: auto;
+    margin-bottom: auto;*/
+}
+
+/* Change background color of links on hover */
+ul.tabSH li a:hover {
+    background-color: #6C7579;
+}
+
+/* Create an active/current tablink class */
+ul.tabSH li a:focus, .active {
+    /*background-color: #ccc;*/
+    color: #D8DADC
+}
+
+/* Style the tab content */
+.tabcontentSH {
+    display: none;
+    padding: 6px 0px;
+    /*border: 1px solid #ccc;*/
+    border-top: none;
+    background-color: #353738;
+    color: #8A8C8E;
+}
+
+/* Style the tab content */
+.tabcontentSHResponse {
+
+    padding: 6px 6px;
+    /*border: 1px solid #ccc;*/
+    border-top: none;
+    background-color: #282C2E;
+    color: #8A8C8E;
+}
+
+/* save new request modal window */
+
+/*************************************** The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #282C2E;
+    /*background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    /*background-color: #282C2E;*/
+    background-color: #353738;
+    /*background-color: #fefefe;*/
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 6px 5px;
+    background-color: #353738;
+    /*background-color: #5cb85c;*/
+    color: white;
+}
+
+.modal-body {padding: 20px 16px;}
+
+.modal-footer {
+    padding: 6px 10px;
+    background-color: #353738;
+    /*background-color: #5cb85c;*/
+    color: white;
+}
+
+/*************************************** Dropdown Button */
+
+.dropbtn {
+    background-color: #353738;
+    /*background-color: white;*/
+    color: #175290;
+    /*color: white;*/
+    /*padding: 5px;*/
+    font-size: 30px;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    /*height: 5px;*/
+    /*float: left;*/
+    /*position: relative;*/
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    /*background-color: #3e8e41;*/
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    /*position: relative;*/
+    /*position: absolute;*/
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    /*display: inline-block;*/
+    display: none;
+    position: absolute;
+    background-color: #353738;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    font-size: 10px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #6C7579
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display:block;
+  /*position: absolute;*/
+}
+
+/********************* button */
+
+/* Google Fonts */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+/* button div */
+#buttons {
+  /*padding-top: 10px;*/
+  text-align: center;
+  display:inline-block
+}
+
+/* start da css for da buttons */
+.btn {
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 15px;
+  text-decoration: none;
+  margin: 5px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+}
+
+.btn:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.blue {
+  background-color: #175290;
+}
+
+.blue:hover {
+  background-color: #6FC6FF;
+}
+
+.green {
+  background-color: #2ecc71;
+}
+
+.green:hover {
+  background-color: #48E68B;
+}
+
+/************** request menu Bar */
+
+#requestBar {
+  color: #8A8C8E;
+  list-style-type: none;
+  margin: 0;
+  padding: 5px;
+  overflow: hidden;
+  /*border: 1px solid #ccc;*/
+  background-color: #353738;
+  display: inline-block;
+  width: 880px;
+  position: fixed;
+
+}
+
+/************** response menu bar */
+
+#httpResponseStatus {
+  color: #175290;
+  font-size: 10px;
+  display: inline-block;
+}
+
+#httpResponseTime {
+  color: #175290;
+  font-size: 10px;
+  display: inline-block;
+}
+
+#responseMenuBar {
+  color: #8A8C8E;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /*border: 1px solid #ccc;*/
+  background-color: #353738;
+  display: inline-block;
+  width: 785px;
+
+}
+#responseMenuBarItemTitle {
+  /*margin: 0;*/
+  color: #8A8C8E;
+  float: left;
+  /*display: inline-block;*/
+  /*padding: 10px;*/
+  padding: 2px 2px;
+  margin-right: 10px;
+}
+
+#responseMenuBarItem {
+  /*padding: 10px;*/
+  color: #8A8C8E;
+  float: right;
+  margin-right: 60px;
+  /*display: inline-block;*/
+}
+
+/************ httpMethod select box */
+
+.select-style {
+    height: 32px;
+    display: inline-block;
+    /*border: 1px solid #ccc;*/
+    border: 1px;
+    width: 120px;
+    /*border-radius: 3px;*/
+    /*overflow: hidden;*/
+    /*margin: 10px 0 10px 0;*/
+    /*margin-bottom: 10px;*/
+    /*padding: 1px;*/
+    /*padding-bottom: 1px;*/
+    background: #8A8C8E url("http://s18.postimg.org/pbf0wwpg5/arrow.png") no-repeat 90% 50%;
+}
+
+.select-style select {
+    padding: 6px 5px 5px 5px;
+    width: 120%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    font-size: 17px;
+    color: white;
+}
+
+.select-style select:focus {
+    outline: none;
+}
+
+/* JSON beautify */
+/*http://jsfiddle.net/unLSJ/*/
+
+.json-key {
+ color: #26c41e;
+ }
+.json-value {
+ color: #c0bd0c;
+ }
+.json-string {
+ color: #c0bd0c;
+ }
+ .json-number {
+  color: #4936b5;
+  }

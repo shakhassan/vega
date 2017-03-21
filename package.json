@@ -1,0 +1,27 @@
+{
+  "name": "vega",
+  "version": "1.0.0",
+  "description": "API Client",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager /Users/rjirwanshah/WinApp/electron/vega Vega --all --out ~/Desktop/Vega --version 1.0.0 --overwrite --icon=/Users/rjirwanshah/WinApp/electron/vega/img/vega-s4.png"
+  },
+  "repository": "https://github.com/shakhassan/vega",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "Shak Hassan",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^1.4.1"
+  },
+  "dependencies": {
+    "electron-tabs": "^0.4.2",
+    "socket.io-client": "^1.7.3"
+  }
+}

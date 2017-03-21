@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
+
+    <script type="text/javascript" src="httpGetTest.js"></script>
+    <script type="text/javascript" src="style.js"></script>
+    <script type="text/javascript" src="vegadb.js"></script>
+    <script type="text/javascript" src="js/internetConnectionStatus.js"></script>
+    <script type="text/javascript" src="js/webWorker.js"></script>
+
+    <script type="text/javascript">GetSelectedItem(el);</script>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+
+    <!-- <script src="js/jquery.easydropdown.js" type="text/javascript"></script> -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/easydropdown.css"/> -->
+
+    <script type="text/javascript">
+      // if (document.location.hash == "" || document.location.hash == "#")
+      //   document.location.hash = "#ResponseId";
+      // document.querySelector('#ResponseId').setAttribute("checked", "checked");
+    </script>
+
+    <!-- <link rel="stylesheet" href="node_modules/electron-tabs/electron-tabs.css"> -->
+
+    <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css"> -->
+    <style>
+    #dialog label, #dialog input { display:block; }
+    #dialog label { margin-top: 0.5em; }
+    #dialog input, #dialog textarea { width: 95%; }
+    #tabs { margin-top: 1em; }
+    #tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+    #add_tab { cursor: pointer; }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <script>
+      $( function() {
+
+        // document.getElementById("tabs-1").innerHTML = document.getElementById("maincontent").innerHTML;
+
+        var tabTitle = $( "#tab_title" ),
+          tabContent = $( "#tab_content" ),
+          tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>",
+          tabCounter = 2;
+
+        var tabs = $( "#tabs" ).tabs();
+
+        // Modal dialog init: custom buttons and a "close" callback resetting the form inside
+        var dialog = $( "#dialog" ).dialog({
+          autoOpen: false,
+          modal: true,
+          buttons: {
+            Add: function() {
+              addTab();
+              $( this ).dialog( "close" );
+            },
+            Cancel: function() {
+              $( this ).dialog( "close" );
+            }
+          },
+          close: function() {
+            form[ 0 ].reset();
+          }
+        });
+
+        // AddTab form: calls addTab function on submit and closes the dialog
+        var form = dialog.find( "form" ).on( "submit", function( event ) {
+          addTab();
+          dialog.dialog( "close" );
+          event.preventDefault();
+        });
+
+        // Actual addTab function: adds new tab using the input from the form above
+        function addTab() {
+          var label = tabTitle.val() || "Tab " + tabCounter,
+            id = "tabs-" + tabCounter,
+            li = $( tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ) ),
+            // tabContentHtml = tabContent.val() || "Tab " + tabCounter + " content.";
+            tabContentHtml = document.getElementById("maincontent").innerHTML;
+
+
+          tabs.find( ".ui-tabs-nav" ).append( li );
+          // tabs.append( "<div id='" + id + "'><p>" + tabContentHtml + "</p></div>" );
+          tabs.append( "<div id='" + id + "'>" + tabContentHtml + "</div>" );
+          tabs.tabs( "refresh" );
+          tabCounter++;
+        }
+
+        // AddTab button: just opens the dialog
+        $( "#add_tab" )
+          .button()
+          .on( "click", function() {
+            // dialog.dialog( "open" );
+            // tabs-1.dialog("open");
+            addTab();
+          });
+
+        // Close icon: removing the tab on click
+        tabs.on( "click", "span.ui-icon-close", function() {
+          var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
+          $( "#" + panelId ).remove();
+          tabs.tabs( "refresh" );
+        });
+
+        tabs.on( "keyup", function( event ) {
+          if ( event.altKey && event.keyCode === $.ui.keyCode.BACKSPACE ) {
+            var panelId = tabs.find( ".ui-tabs-active" ).remove().attr( "aria-controls" );
+            $( "#" + panelId ).remove();
+            tabs.tabs( "refresh" );
+          }
+        });
+      } );
+      </script> -->
+
+      <!--for notification center  -->
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+      <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <script>
+      function reloadMenu() {
+        $( "#menu" ).load( loadRequestList() );
+      }
+    </script>
+
+    <!--check internet connection during launch  -->
+    <script>
+      viaXMLHttpRequest();
+      viaNavigator();
+
+    </script>
+    <script>
+
+    </script>
+
+    <title>Vega API Client (Team Sharing!)</title>
+
+  </head>
+
+  <body style="-webkit-app-region: drag">
+    <div id="topMenuBar">
+      <div id="buttons">
+        <!-- <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Dropdown Example
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
+          </ul>
+        </div> -->
+        <div class="btnTopMenu userBtnTopMenu">john doe</div>
+        <div class="btnTopMenu userBtnTopMenu" id="webworkerId">.....</div>
+        <div class="btnTopMenu userBtnTopMenu" id="connectionStatus">sync..</div>
+        <div class="syncIcon"><img src="img/ico_sync.png" height="33" width="33"></div>
+        <!-- <div class="notiIcon"><img src="img/bell-1096280_1280.png" height="29" width="29"></div> -->
+      </div>
+
+    </div>
+    <div id="page">
+    <div id="maincontent">
+        <!-- <h1 style="-webkit-user-select: none; -webkit-app-region: no-drag" id="demo">Senggora.API</h1>
+        Self hosted API client with team features! -->
+        <!-- <form> -->
+        <div id="requestBar">
+          <div class="select-style">
+            <select id="httpMethod">
+              <option value="GET">GET</option>
+              <option value="POST">POST</option>
+              <option value="PUT">PUT</option>
+              <option value="DELETE">DELETE</option>
+            </select>
+          </div>
+            <input type="hidden" name="requestIdActive" id="requestIdActive" value=""></input>
+            <input type="hidden" name="requestTitleActive" id="requestTitleActive" value=""></input>
+            <input type="text" id="urlRequest" size="50" value="enter your URL here"></input>
+            <!-- <input type="submit" value="Send" onclick="GetSelectedItem(document.getElementById('urlRequest').value, document.getElementById('httpMethod').value);"> -->
+            <!-- <input type="submit" value="Save" id="myBtn"  onclick="savetoMongoDBSelfHosted();"> -->
+
+            <!-- <select class="dropdown">
+              <option value="" class="label">Setting</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+              <option value="4">Option 4</option>
+              <option value="5">Option 5</option>
+            </select> -->
+
+            <div id="buttons">
+              <a href="#" class="btn blue" onclick="GetSelectedItem(document.getElementById('urlRequest').value, document.getElementById('httpMethod').value, document.getElementById('requestHeadersKey1').value, document.getElementById('requestHeadersKey2').value, document.getElementById('requestBody').value);">Send</a>
+              <a href="#" class="btn green" id="myBtn"  onclick="checkSaveOrUpdate(document.getElementById('requestIdActive').value);">Save</a>
+            </div>
+            <!-- <input type="submit" value="Save MongoDB" onclick="savetoMongoDB(document.getElementById('requestIdActive').value, document.getElementById('urlRequest').value, document.getElementById('httpMethod').value, document.getElementById('requestTitle').value, document.getElementById('requestHeadersKey1').value, document.getElementById('requestHeadersValue1').value, document.getElementById('requestBody').value);"> -->
+
+            <!-- <input type="submit" value="check requestIdActive" onclick="savetoMongoDBTestJSFuncParam(document.getElementById('requestIdActive').value, document.getElementById('urlRequest').value);"> -->
+            <!-- <input type="submit" value="checkValueExist" onclick="addTest(document.getElementById('requestIdActive').value);"> -->
+            <!-- <input type="submit" value="testCallback" onclick="hello12(2,3, hello13);">
+            <input type="submit" value="testCallback2" onclick="testCheckConn();">
+            <input type="submit" value="testCheckConn" onclick="testCheckConnCaller(testCheckConn);"> -->
+            <br/><br/>
+            <!-- <input type="submit" value="ReadAll" onclick="readAll();"> -->
+            <!-- <div class="dropdown">
+              <button onclick="dropdownRequestList()" class="dropbtn">...</button>
+              <div id="myDropdown" class="dropdown-content">
+                <a href="#">Edit</a>
+                <a href="#">Delete</a>
+              </div>
+            </div> -->
+          </div>
+          <br/><br/><br/>
+          <ul class="tab">
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Authorization')">Authorization</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Headers')">Headers</a></li>
+            <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Body')">Body</a></li>
+          </ul>
+
+          <div id="Authorization" class="tabcontent" style="display:block;">
+            <br>
+            Type
+            <select id="authorizationoption">
+              <option value="no">No Auth</option>
+              <option value="Basic">Basic Auth</option>
+              <option value="Bearer">OAuth 2.0</option>
+            </select>
+            <br><br>
+            <div>
+              <input class="requestheaders" type="text" id="httpBasicAuthUserName" size="50" value="httpBasicAuthUserName">  </input>
+              <input class="requestheaders" type="text" id="httpBasicAuthPassword" size="50" value="httpBasicAuthPassword">  </input>
+            </div>
+          </div>
+
+          <div id="Headers" class="tabcontent">
+
+              <input class="requestheaders" type="text" id="requestHeadersKey1" size="50" value="key1">  </input>
+              <input class="requestheaders" type="text" id="requestHeadersValue1" size="50" value="value1">  </input>
+              <br/>
+              <input class="requestheaders" type="text" id="requestHeadersKey2" size="50" value="key2">  </input>
+              <input class="requestheaders" type="text" id="requestHeadersValue2" size="50" value="value2">  </input>
+
+          </div>
+
+          <div id="Body" class="tabcontent">
+            <textarea rows="5" cols="70" id="requestBody"></textarea>
+          </div>
+
+        </form>
+
+        <!-- <div id="responseMenuBar">
+          <p style="color: #8A8C8E;">Response<p>
+          <p style="color: #8A8C8E;">Status <div id="httpResponseStatus"></div><p>
+        </div> -->
+
+        <!-- <ul id="responseMenuBar">
+          <li id="responseMenuBarItemTitle">Response</li>
+          <li id="responseMenuBarItemTitle">Headers</li>
+          <li id="responseMenuBarItem">Time <div id="httpResponseTime"></div></li>
+          <li id="responseMenuBarItem">Status <div id="httpResponseStatus"></div></li>
+        </ul> -->
+
+        <ul class="tab">
+          <li id="ResponseId"><a href="javascript:void(0)" class="tablinks" onclick="responseTab(event, 'Response')">Response</a></li>
+          <li><a href="javascript:void(0)" class="tablinks" onclick="responseTab(event, 'ResponseHeaders')">Headers</a></li>
+          <li id="responseMenuBarItem">Time <div id="httpResponseTime"></div></li>
+          <li id="responseMenuBarItem">Status <div id="httpResponseStatus"></div></li>
+        </ul>
+
+        <div id="Response" class="tabcontentResponse" style="display:block;">
+          <!-- <textarea rows="30" cols="110" id="httpResponseBody" disabled >
+            HTTP response here
+          </textarea> -->
+          <p id="httpResponseBody"> HTTP response here </p>
+        </div>
+
+        <div id="ResponseHeaders" class="tabcontentResponse">
+        <!-- <div id="ResponseHeaders"> -->
+          <!-- <textarea rows="30" cols="110" id="httpResponseHeaders" disabled>
+            Cache-Control → <div id="responseCacheControl"></div>
+            Connection → <div id="responseConnection"></div>
+            Content-Type → <div id="responseContentType"></div>
+            Date → <div id="responseDateTime"></div>
+            Server → <div id="responseServer"></div>
+          </textarea> -->
+          <div id="httpresponsearea">
+            Cache-Control → <div id="responseCacheControl" style="display: inline-block;"></div><br>
+            Connection → <div id="responseConnection" style="display: inline-block;"></div><br>
+            Content-Type → <div id="responseContentType" style="display: inline-block;"></div><br>
+            Date → <div id="responseDateTime" style="display: inline-block;"></div><br>
+            Server → <div id="responseServer" style="display: inline-block;"></div><br>
+            Location → <div id="responseLocation" style="display: inline-block;"></div><br>
+          </div>
+        </div>
+
+        <!-- <textarea rows="30" cols="110" id="httpResponseBody" disabled>
+          HTTP response here
+        </textarea> -->
+
+    </div>
+
+    <div id="menuleftcontent">
+      <div class="box">
+        <div class="container-1">
+            <span class="icon"><i class="fa fa-search"></i></span>
+            <input type="search" id="search" placeholder="Filter" />
+        </div>
+      </div>
+      <ul class="tabSH">
+        <li style="float:left; margin-left:20px;"><a href="javascript:void(0)" class="tablinks" onclick="savedHistoryTab(event, 'Saved')">Saved</a></li>
+        <li style="float:right; margin-right:20px;"><a href="javascript:void(0)" class="tablinks" onclick="savedHistoryTab(event, 'History')">History</a></li>
+      </ul>
+      <!-- <ul id="menu" style="margin-top:-50px;"></ul> -->
+      <div id="Saved" class="tabcontentSH" style="display:block;"><ul id="menu" style="margin-top:-50px;"></ul></div>
+      <div id="History" class="tabcontentSH"><ul id="menuHistory" style="margin-top:-50px;"></ul></div>
+    </div>
+    <div id="clearingdiv"></div>
+
+
+    <!-- <div class="etabs-tabgroup">
+        <div class="etabs-tabs"></div>
+        <div class="etabs-buttons"></div>
+    </div>
+    <div class="etabs-views">
+    </div> -->
+
+    <!-- <div id="dialog" title="Tab data">
+      <form>
+        <fieldset class="ui-helper-reset">
+          <label for="tab_title">Title</label>
+          <input type="text" name="tab_title" id="tab_title" value="Request" class="ui-widget-content ui-corner-all">
+          <label for="tab_content">Content</label>
+          <textarea name="tab_content" id="tab_content" class="ui-widget-content ui-corner-all">Tab content</textarea>
+        </fieldset>
+      </form>
+    </div>
+    <div id="tabs" style="background-color: #353738;">
+      <button id="add_tab">+</button>
+      <ul>
+        <li><a href="#tabs-1">Request</a> <span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+        <li><button id="add_tab">Add Tab</button></li>
+      </ul>
+
+      <div id="tabs-1"></div>
+    </div> -->
+
+    <!-- Trigger/Open The Modal -->
+    <!-- <button id="myBtn"  onclick="modalwindow();">Open Modal</button> -->
+
+    <!-- Save new request modal -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Save Request</h2>
+        </div>
+        <div class="modal-body">
+          <p>Request Name</p>
+          <input type="text" name="requestTitle" size="50" id="requestTitle" style="background-color: #282C2E; color: #8A8C8E; border: none; font-size: 14px;">
+          <p>Description</p>
+          <textarea rows="5" cols="70" name="requestDescription" size="50" id="requestDescription" style="color: #8A8C8E;"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button id="cancelBtn">Cancel</button>
+          <button id="myBtn" onclick="add(document.getElementById('requestIdActive').value, document.getElementById('httpMethod').value, document.getElementById('requestTitle').value, document.getElementById('urlRequest').value, document.getElementById('requestBody').value, document.getElementById('requestHeadersKey1').value, document.getElementById('requestHeadersValue1').value, document.getElementById('requestDescription').value);">Save New Request</button>
+          <!-- <button id="myBtn" onclick="addTest2(document.getElementById('requestIdActive').value, document.getElementById('httpMethod').value, document.getElementById('requestTitle').value, document.getElementById('urlRequest').value, document.getElementById('requestBody').value, document.getElementById('requestHeadersKey1').value, document.getElementById('requestHeadersValue1').value, document.getElementById('requestDescription').value);">Save addTest</button> -->
+          <!-- <button id="myBtn" ondblclick="testuuid('httpMethod', 'requestTitle', 'urlRequest', 'requestBody');">Save</button> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit request modal -->
+    <div id="editRequest" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Edit Request</h2>
+        </div>
+        <div class="modal-body">
+          <p>Request Name</p>
+          <input type="text" name="editRequestTitle" size="50" id="editRequestTitle">
+          <p>Description</p>
+          <textarea rows="5" cols="70" name="editRequestDescription" size="50" id="editRequestDescription" style="color: #8A8C8E;"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button id="cancelBtn">Cancel</button>
+          <button id="myBtn" onclick="updateRequest(document.getElementById('requestId').value, document.getElementById('httpMethod').value, document.getElementById('editRequestTitle').value, document.getElementById('urlRequest').value, document.getElementById('requestBody').value, document.getElementById('requestHeadersKey1').value, document.getElementById('requestHeadersValue1').value, document.getElementById('editRequestDescription').value);">Update</button>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+  <script>loadRequestList();</script>
+  <script>loadHistory();</script>
+  <script>
+    var io = require('socket.io-client');
+    var socket = io.connect('http://localhost:3000', {reconnect: true});
+
+    // Add a connect listener
+    socket.on('connect', function (socket) {
+      console.log('Connected!');
+    });
+
+    function notifyClient(key) {
+      // var io = require('socket.io-client');
+      // var socket = io.connect('http://localhost:3000', {reconnect: true});
+      //
+      // // Add a connect listener
+      // socket.on('connect', function (socket) {
+      //   console.log('Connected!');
+      // });
+
+      //TODO : change to variable instead of 'chat message'
+
+      //TODO : check subscription table and listen to each of them (channel)
+      var room = 'projectX';
+      socket.emit(room, 'API updated. will receive new data for ' + key);
+
+      // socket.emit('chat message', 'API updated. will receive new data for ' + key);
+    }
+  </script>
+  <script>
+    $( "#deleteRequestA" ).click(function() {
+      // $( "li" ).remove( ":contains('Latest currency')" );
+      alert("hey jquery!");
+    });
+  </script>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>
