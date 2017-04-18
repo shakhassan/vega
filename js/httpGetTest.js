@@ -27,10 +27,7 @@ function GetSelectedItem(el) {
   // var buffer = new Buffer(httpAuth);
 
   xhr.open(httpMethod, urlRequest, true);
-  // xhr.setRequestHeader('X-Auth-Token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwZjI4N2VkOC1iM2E2LTQwZmQtYjU5Yy1kZjE2M2Q1MDNlZTYiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwianRpIjoiNDJiMTJkMzUtOTRmZC00Mjk3LWJiMTgtZTYwNDBkN2I3OTMyIiwiaWF0IjoxNDc3NDQ4Nzc0LCJleHAiOjE1NzY2ODgxMDUsImF0cCI6ImF1dGhlbnRpY2F0aW9uIn0.KH17PxFQ73VMJNyrTJGBIko7JKaOAzr3Qtdi0jG1Fl0');
   xhr.setRequestHeader("Authorization", authorizationoption + " " + httpAuth);
-  // xhr.setRequestHeader("Authentication", "Basic", window.btoa("8w="));
-  // xhr.setRequestHeader("Authentication", "Basic", buffer);
   xhr.setRequestHeader(requestHeadersKey1, requestHeadersValue1);
   xhr.setRequestHeader(requestHeadersKey2, requestHeadersValue2);
   xhr.send();
@@ -100,6 +97,7 @@ function GetSelectedItem(el) {
         httpResponseStatus.innerHTML = responseStatus;
         httpResponseTime.innerHTML = (Date.now() - start) + " ms";
         httpResponseBody.innerHTML = responseBody;
+        // Response.innerHTML = responseBody;
         // httpResponseBody.innerHTML = library.json.prettyPrint(responseBody);
         // httpResponseBody.html = jsonPrettyPrint.toHtml(responseBody);
         // httpResponseBody.innerHTML = jsonPrettyPrint(responseBody);
@@ -133,49 +131,4 @@ function getWhatIWant() {
   request("http://www.sitepoint.com", function(error, response, body) {
     console.log(body);
   });
-}
-
-/* save into MongoDB */
-//this function need to be called after save into indexedDB when user clicked on the save button
-function savetoMongoDB(el) {
-
-  var start = new Date().getTime();
-  var requestIdActive = document.getElementById("requestIdActive").value;
-  var urlRequest = document.getElementById("urlRequest").value;
-  var httpMethod = document.getElementById("httpMethod").value;
-
-  //auth info
-  var authorizationoption = document.getElementById("authorizationoption").value;
-  var httpBasicAuthUserName = document.getElementById("httpBasicAuthUserName").value;
-  var httpBasicAuthPassword = document.getElementById("httpBasicAuthPassword").value;
-  var httpAuth = window.btoa(httpBasicAuthUserName + ":" + httpBasicAuthPassword);
-
-  //headers info
-  var requestHeadersKey1 = document.getElementById("requestHeadersKey1").value;
-  var requestHeadersValue1 = document.getElementById("requestHeadersValue1").value;
-
-  var requestHeadersKey2 = document.getElementById("requestHeadersKey2").value;
-  var requestHeadersValue2 = document.getElementById("requestHeadersValue2").value;
-
-  var requestBody = document.getElementById("requestBody").value;
-
-  var xhr = new XMLHttpRequest();
-  xhr.open('PUT', 'https://api.mlab.com/api/1/databases/devdb/collections/requestlist?apiKey=PdXVo4d9e96rapRhfW9Cype-jWQoOGMi&q={\'id\': \'776582a7-a9fc-4a06-8713-79fb0813b144\}&u=true', true);
-
-  xhr.setRequestHeader('Content-Type', 'application/json');
-
-  xhr.send(
-    JSON.stringify(
-      {
-        id: requestIdActive,
-        method: httpMethod,
-        title: requestTitle,
-        url: urlRequest,
-        authorizationoption: {key: httpBasicAuthUserName, value: httpBasicAuthPassword},
-        headers: [{key : requestHeadersKey1, value: requestHeadersValue1}],
-        body: requestBody
-    }
-    )
-  );
-
 }

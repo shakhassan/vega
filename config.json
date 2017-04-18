@@ -1,0 +1,9 @@
+{
+  "_comment_" : "this is a master configuration file where we can set :  1- sync local data to server or not, eg : On / Off. 2- database type : MongoDB, mySQL etc. 3- etc etc etc",
+  "sync" : "on",
+  "db": {
+    "type" : "MongoDB"
+  }
+
+
+}

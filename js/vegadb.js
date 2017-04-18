@@ -9,15 +9,12 @@ if (!window.indexedDB) {
     window.alert("Your browser doesn't support a stable version of IndexedDB.")
 }
 
-// const employeeData = [
-//                         { id: "542e31e6-f272-4dd8-ad5a-0129dc7763fa", name: "gopal", age: 35, email: "gopal@tutorialspoint.com" },
-//                         { id: "19bb475f-a7e7-46c4-96cf-856687d86b6d", name: "prasad", age: 32, email: "prasad@tutorialspoint.com" }
-//                       ];
-
 //create / open database if created
 //test1 database
 var request = indexedDB.open("test1",1);
 var db;
+
+var myDropdown = [];
 
 request.onupgradeneeded = function() {
   db = request.result;
@@ -90,6 +87,11 @@ requestOffline.onerror = function(event) {
   alert("Why didn't you allow my web app to use IndexedDB?!");
 };
 
+//global configuration json file
+var config = require('./config.json');
+var sync = config.sync;
+// alert("config : sync is " + sync);
+
 function add(requestIdActive, httpMethod, requestTitle, urlRequest, requestBody, requestHeadersKey1, requestHeadersValue1, requestDescription) {
 
   //TESTING to double confirm this func triggered by new request, not existing (update).
@@ -123,17 +125,26 @@ function add(requestIdActive, httpMethod, requestTitle, urlRequest, requestBody,
   );
 
   request.onsuccess = function(event) {
-      alert("Data has been added to your database.");
+      // alert("Data has been added to your database.");
   };
 
   request.onerror = function(event) {
-    alert("Unable to add data\r"+ idRequest +"is aready exist in your database! ");
+    // alert("Unable to add data\r"+ idRequest +"is aready exist in your database! ");
   }
 
   // savetoMongoDB();
   // notifyClient(id);
 
-  savetoMongoDBSelfHosted(idRequest);
+  //check if sync = On
+  if(sync==='on') {
+    savetoMongoDBSelfHosted(idRequest)
+  }
+  else {
+    //TODO : need to reload new data in left menu if sync is OFF!
+    alert("sync is not on, this will not be saved to server!")
+    menuLoadNewlyAddedRequest(idRequest)
+  }
+
 }
 
 function readAll() {
@@ -172,12 +183,14 @@ function readAllOffline() {
       offlineDataRetValue = "no offline data found";
       alert("var offlineData : " + offlineDataRetValue);
       // return "no offline data found";
+      webworkerId.innerHTML = 'sync completed!';
     }
   };
   alert("var offlineData global : " + offlineDataRetValue);
   return offlineDataRetValue;
 }
 
+var requestCounter = 0;
 function menuLoadNewlyAddedRequest(key) {
 
   alert("new request added id : " + key)
@@ -201,8 +214,9 @@ function menuLoadNewlyAddedRequest(key) {
          "</a>" +
          "</div>" +
          "<div class='dropdown'>" +
-           "<button onclick='dropdownRequestList();' class='dropbtn'>...</button>" +
-           "<div id='myDropdown' class='dropdown-content'>" +
+           "<button onclick='dropdownRequestList(\"test\");' class='dropbtn'>...</button>" +
+          //  "<div id='myDropdown' class='dropdown-content'>" +
+           "<div id='"+myDropdown[requestCounter]+"' class='dropdown-content'>" +
              "<input type='hidden' name='requestId' id='requestId' value=\""+ request.key + "\">" +
              "<a href='#' onclick='editRequest(\""+ request.key + "\");' id='myBtn'>Edit</a>" +
              "<a href='#' onclick='remove(\""+ request.key + "\");'>Delete</a>" +
@@ -210,8 +224,46 @@ function menuLoadNewlyAddedRequest(key) {
          "</div>" +
        "</li>";
 
+       requestCounter += 1;
+
      } else {
         alert(key + " couldn't be found in your database! (menuLoadNewlyAddedRequest)");
+     }
+
+   };
+
+}
+
+//load newly add history
+var requestCounter = 0;
+function menuLoadNewlyAddedHistory(key) {
+
+  // alert("new request history added id : " + key)
+  var transactionHistory = dbHistory.transaction("requestlist")
+  var objectStoreHistory = transactionHistory.objectStore("requestlist");
+  var requestHistory = objectStoreHistory.get(key);
+
+  requestHistory.onerror = function(event) {
+     alert("Unable to retrieve data from database! (menuLoadNewlyAddedRequest)");
+  };
+
+  requestHistory.onsuccess = function(event) {
+     if(requestHistory.result) {
+
+       menuHistory.innerHTML +=
+       "<li>" +
+         "<div style='display: inline-block;'>" +
+         "<a href='#' onclick='readHistory(\"" + requestHistory.key + "\");'>" +
+           "<div id='httpMethodListGet'>" + requestHistory.result.method + "</div>" +
+           "<div id='urlMenuLeft'>" + requestHistory.result.url + "</div>" +
+         "</a>" +
+         "</div>" +
+       "</li>";
+
+       requestCounter += 1;
+
+     } else {
+        // alert(key + " couldn't be found in your database! (menuLoadNewlyAddedRequest)");
      }
 
    };
@@ -449,11 +501,12 @@ function addHistory(httpMethod, urlRequest, requestBody, requestHeadersKey1, req
   );
 
   requestHistory.onsuccess = function(event) {
-      alert("Data has been added to your database.");
+      // alert("Data has been added to your database.");
+      menuLoadNewlyAddedHistory(idRequest);
   };
 
   requestHistory.onerror = function(event) {
-    alert("Unable to add data\r"+ idRequest +"is aready exist in your database! ");
+    // alert("Unable to add data\r"+ idRequest +"is aready exist in your database! ");
   }
 }
 
@@ -547,9 +600,8 @@ function readHistory(key) {
    };
 }
 
-//TODO : delete in MongoDB
 function deleteRequestInMongoDBSelfHosted(key) {
-  alert("sync : delete request for id " + key);
+  // alert("sync : delete request for id " + key);
 
   var xhr = new XMLHttpRequest();
 
@@ -558,9 +610,10 @@ function deleteRequestInMongoDBSelfHosted(key) {
   xhr.send();
 }
 
+//TODO : sync delete during offline
 function syncOfflinetoMongoDBSelfHosted(key, method, title, url, requestHeadersKey1, requestHeadersValue1) {
 
-  alert("sync : id " + key + " method " + method + "title:" + title + " url: " + url + " headersKey1: " + requestHeadersKey1 + " headersValue1: " + requestHeadersValue1);
+  // alert("sync : id " + key + " method " + method + "title:" + title + " url: " + url + " headersKey1: " + requestHeadersKey1 + " headersValue1: " + requestHeadersValue1);
   var currentDateTime = new Date().getTime();
 
   var xhr = new XMLHttpRequest();
@@ -607,7 +660,7 @@ function savetoMongoDBSelfHosted(key) {
     requestIdActive = key;
     isThisNewRequest++;
     var requestTitle = document.getElementById('requestTitle').value;
-    alert("savetoMongoDBSelfHosted function - requestTitle : " + requestTitle);
+    // alert("savetoMongoDBSelfHosted function - requestTitle : " + requestTitle);
   }
 
   var urlRequest = document.getElementById("urlRequest").value;
@@ -660,7 +713,7 @@ function savetoMongoDBSelfHosted(key) {
 
   xhr.send(toServer);
 
-  alert("isThisNewRequest : " + isThisNewRequest)
+  // alert("isThisNewRequest : " + isThisNewRequest)
   // loadRequestList()
   // reloadMenu()
   //TODO : if update, no need to load new row in menu but replace/refresh the existing(effected) row
@@ -675,73 +728,6 @@ function savetoMongoDBSelfHosted(key) {
 
 }
 
-/* save into MongoDB */
-//this function need to be called after save into indexedDB when user clicked on the save button
-function savetoMongoDB() {
-
-  var start = new Date().getTime();
-  var requestIdActive = document.getElementById("requestIdActive").value;
-  if (requestIdActive) {
-    requestIdActive = requestIdActive;
-  } else {
-    const uuidV4 = require('uuid/v4');
-    var requestIdActive = uuidV4();
-  }
-
-  var urlRequest = document.getElementById("urlRequest").value;
-  var httpMethod = document.getElementById("httpMethod").value;
-  // var requestTitle = document.getElementById('requestTitleActive').value
-  var requestTitle = document.getElementById('editRequestTitle').value
-
-  //auth info
-  var authorizationoption = document.getElementById("authorizationoption").value;
-  var httpBasicAuthUserName = document.getElementById("httpBasicAuthUserName").value;
-  var httpBasicAuthPassword = document.getElementById("httpBasicAuthPassword").value;
-  var httpAuth = window.btoa(httpBasicAuthUserName + ":" + httpBasicAuthPassword);
-
-  //headers info
-  var requestHeadersKey1 = document.getElementById("requestHeadersKey1").value;
-  var requestHeadersValue1 = document.getElementById("requestHeadersValue1").value;
-
-  var requestHeadersKey2 = document.getElementById("requestHeadersKey2").value;
-  var requestHeadersValue2 = document.getElementById("requestHeadersValue2").value;
-
-  var requestBody = document.getElementById("requestBody").value;
-  var requestDescription = document.getElementById("editRequestDescription").value;
-
-  if (requestDescription) {
-    requestDescription = requestDescription;
-  } else {
-    requestDescription = document.getElementById("requestDescription").value;
-  }
-
-  alert("savetoMongoDB function " + requestIdActive + httpMethod + requestTitle + urlRequest + httpBasicAuthUserName + httpBasicAuthPassword + requestHeadersKey1 + requestHeadersValue1 + requestBody + requestDescription);
-
-  var xhr = new XMLHttpRequest();
-  var urlParam = "&q={'id': '" + requestIdActive + "'}&u=true";
-  xhr.open('PUT', 'https://api.mlab.com/api/1/databases/devdb/collections/requestlist?apiKey=PdXVo4d9e96rapRhfW9Cype-jWQoOGMi' + urlParam, true);
-
-  xhr.setRequestHeader('Content-Type', 'application/json');
-
-  var toServer = JSON.stringify(
-    {
-      id: requestIdActive,
-      method: httpMethod,
-      title: requestTitle,
-      url: urlRequest,
-      authorization: {type: authorizationoption, key: httpBasicAuthUserName, value: httpBasicAuthPassword},
-      headers: [{key : requestHeadersKey1, value: requestHeadersValue1}],
-      body: requestBody,
-      description: requestDescription
-    }
-  );
-
-  xhr.send(toServer);
-
-  notifyClient(toServer);
-}
-
-
 /**** TEST *****/
 
 //use el as param
@@ -749,7 +735,7 @@ function savetoMongoDBTestJSFuncParam(el) {
 
   var requestIdActive = document.getElementById("requestIdActive").value;
   var urlRequest = document.getElementById("urlRequest").value;
-  alert("requestIdActive " + requestIdActive + " urlRequest " + urlRequest);
+  // alert("requestIdActive " + requestIdActive + " urlRequest " + urlRequest);
 
 }
 
@@ -758,14 +744,14 @@ function savetoMongoDBTestJSFuncParam() {
 
   var requestIdActive = document.getElementById("requestIdActive").value;
   var urlRequest = document.getElementById("urlRequest").value;
-  alert("requestIdActive " + requestIdActive + " urlRequest " + urlRequest);
+  // alert("requestIdActive " + requestIdActive + " urlRequest " + urlRequest);
 
 }
 
 //use requestIdActive as param
 function savetoMongoDBTestJSFuncParam2(requestIdActive, urlRequest) {
 
-  alert("requestIdActive " + requestIdActive + " urlRequest " + urlRequest);
+  // alert("requestIdActive " + requestIdActive + " urlRequest " + urlRequest);
 
 }
 

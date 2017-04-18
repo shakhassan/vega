@@ -144,8 +144,8 @@ function editRequest(key) {
   }
 }
 
-function dropdownRequestList() {
-
+function dropdownRequestList(key) {
+  alert("requestCounter : " + key)
   document.getElementById("myDropdown").classList.toggle("show");
 
   // Close the dropdown if the user clicks outside of it
