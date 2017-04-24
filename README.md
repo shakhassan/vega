@@ -22,6 +22,6 @@ cd vega
 npm install
 
 #Then simply start app
-node index.js
+npm start
 ```
 
